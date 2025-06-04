@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Customer Reviews - Little Bird Toys</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .star-rating {
+      color: #b36b00;
+      font-size: 1.25rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header bg-white shadow-sm">
+    <div class="container d-flex justify-content-between align-items-center py-3">
+      <a href="index.html" class="logo text-dark fw-bold fs-3">Little Bird Toys</a>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
+          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+          <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+          <li class="nav-item"><a href="reviews.html" class="nav-link">reviews</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container my-5">
+    <h2 class="section-title text-center mb-4">Customer Reviews</h2>
+
+    <div id="reviews-list" class="mb-5">
+      <!-- Reviews loaded here by JS -->
+    </div>
+
+    <h3 class="mb-3">Write Your Own Review</h3>
+    <form id="review-form" class="mb-5">
+      <div class="mb-3">
+        <label for="reviewer-name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="reviewer-name" required />
+      </div>
+      <div class="mb-3">
+        <label for="review-text" class="form-label">Review</label>
+        <textarea class="form-control" id="review-text" rows="3" required></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="review-rating" class="form-label">Rating</label>
+        <select class="form-select" id="review-rating" required>
+          <option value="" disabled selected>Select stars</option>
+          <option value="5">5 - Excellent</option>
+          <option value="4">4 - Very Good</option>
+          <option value="3">3 - Good</option>
+          <option value="2">2 - Fair</option>
+          <option value="1">1 - Poor</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+  </main>
+
+  <footer class="site-footer bg-light py-4 mt-5 text-center text-muted">
+    <p>© 2025 Little Bird Toys • 43 Main Street, Toms River, NJ 08753 • (732) 555-1234</p>
+  </footer>
+
+  <script>
+    const reviews = [
+      {
+        name: "Samantha",
+        review: "Beautiful craftsmanship and excellent quality! My toddler loves the wooden airplane.",
+        rating: 5
+      },
+      {
+        name: "John",
+        review: "Great eco-friendly toys. The train set is a big hit with my kids.",
+        rating: 4
+      },
+      {
+        name: "Emily",
+        review: "Love the natural materials and attention to detail.",
+        rating: 5
+      }
+    ];
+
+    function renderStars(num) {
+      return '★'.repeat(num) + '☆'.repeat(5 - num);
+    }
+
+    function renderReviews() {
+      const list = document.getElementById('reviews-list');
+      if (reviews.length === 0) {
+        list.innerHTML = '<p>No reviews yet. Be the first to write one!</p>';
+        return;
+      }
+      list.innerHTML = reviews.map(r => `
+        <div class="border rounded p-3 mb-3 bg-white shadow-sm">
+          <h5>${r.name}</h5>
+          <p class="star-rating">${renderStars(r.rating)}</p>
+          <p>${r.review}</p>
+        </div>
+      `).join('');
+    }
+
+    function addReview(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('reviewer-name').value.trim();
+      const text = document.getElementById('review-text').value.trim();
+      const rating = parseInt(document.getElementById('review-rating').value);
+
+      if (!name || !text || !rating) {
+        alert('Please fill out all fields and select a rating.');
+        return;
+      }
+
+      reviews.push({ name, review: text, rating });
+      renderReviews();
+      event.target.reset();
+    }
+
+    document.getElementById('review-form').addEventListener('submit', addReview);
+
+    window.onload = renderReviews;
+  </script>
+
+</body>
+
+</html>
