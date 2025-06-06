@@ -4,12 +4,34 @@ body {
   margin: 0;
   padding: 0;
 }
-
-#products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #fff;
 }
+
+.site-header .logo {
+  font-weight: 600;
+  color: #4a342e;
+  text-decoration: none;
+  letter-spacing: 2px;
+}
+
+.site-header nav .nav-link {
+  color: #4a342e;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.site-header nav .nav-link:hover,
+.site-header nav .nav-link.active {
+  color: #b36b00;
+}
+
 
 .product-card {
   display: flex;
