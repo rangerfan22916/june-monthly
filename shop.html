@@ -141,7 +141,7 @@
     <aside id="cart">
         <h2>Your Cart</h2>
         <ul id="cart-items"></ul>
-        <div id="cart-total">Total Items: 0</div>
+        <div id="cart-total">Total Items: 0 | Total Price: $0.00</div>
     </aside>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -153,6 +153,7 @@
                 age: "Toddlers",
                 description: "Handcrafted Baltic birch wood airplane with spinning propeller.",
                 size: '3.5"H x 7"L x 7"W',
+                price: 29.99,
                 images: [
                     "imgs/plane1.jpg",
                     "imgs/plane2.jpg",
@@ -165,6 +166,7 @@
                 age: "3+",
                 description: "Beech wood train with smooth wheels and eco-friendly paints.",
                 size: "84cm L x 11cm H x 13cm W",
+                price: 49.99,
                 images: [
                     "imgs/train1.jpg",
                     "imgs/train2.jpg",
@@ -181,6 +183,7 @@
                 age: "All ages",
                 description: "Solid Maine white pine boat that floats with peg lobster people.",
                 size: '10.5"W x 3.5"H',
+                price: 24.99,
                 images: [
                     "imgs/boat1.jpg",
                     "imgs/boat2.jpg"
@@ -192,6 +195,7 @@
                 age: "3+",
                 description: "72-piece hardwood blocks with wooden storage crate.",
                 size: "13” L x 12” W x 2” H",
+                price: 39.99,
                 images: [
                     "imgs/block1.jpg",
                     "imgs/block2.jpg",
@@ -206,6 +210,7 @@
                 age: "All ages",
                 description: "Heirloom-quality car handcrafted from domestic and exotic hardwoods.",
                 size: "Varies",
+                price: 19.99,
                 images: [
                     "imgs/car1.jpg",
                     "imgs/car2.jpg",
@@ -219,6 +224,7 @@
                 age: "3+",
                 description: "Eco-friendly wooden jigsaw puzzle with animal shapes.",
                 size: "12” x 12”",
+                price: 14.99,
                 images: [
                     "imgs/puzzle.jpg"
                 ]
@@ -229,6 +235,7 @@
                 age: "Toddlers",
                 description: "Colorful handcrafted stacking rings to develop motor skills.",
                 size: '6"H x 4" diameter',
+                price: 17.99,
                 images: [
                     "imgs/stackingrings.jpg"
                 ]
@@ -239,6 +246,7 @@
                 age: "3+",
                 description: "Complete wooden play kitchen with utensils and stove.",
                 size: "24” H x 18” W x 12” D",
+                price: 99.99,
                 images: ["imgs/kitchenset.webp"]
             },
         ];
@@ -249,21 +257,15 @@
             const grid = document.getElementById("products-grid");
             grid.innerHTML = products
                 .map(p => {
-                    // Create unique carousel id per product
                     const carouselId = `carousel-${p.id}`;
-                    // Check if multiple images
                     const multipleImages = p.images.length > 1;
 
-                    // Carousel indicators (dots) - optional, can add for multiple images
                     const indicators = multipleImages
                         ? `<div class="carousel-indicators">
-                ${p.images.map((_, i) => `
-                  <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" ${i === 0 ? 'class="active" aria-current="true"' : ''} aria-label="Slide ${i + 1}"></button>
-                `).join('')}
+                ${p.images.map((_, i) => `<button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" ${i === 0 ? 'class="active" aria-current="true"' : ''} aria-label="Slide ${i + 1}"></button>`).join('')}
               </div>`
                         : '';
 
-                    // Carousel inner slides
                     const slides = p.images
                         .map((img, i) => `
             <div class="carousel-item ${i === 0 ? "active" : ""}">
@@ -271,7 +273,6 @@
             </div>
           `).join("");
 
-                    // Carousel controls, only if multiple images
                     const controls = multipleImages
                         ? `
               <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
@@ -300,6 +301,7 @@
                   <p class="product-age">Age: ${p.age}</p>
                   <p class="product-desc">${p.description}</p>
                   <p class="product-size">Size: ${p.size}</p>
+                  <p class="product-price fw-bold">$${p.price.toFixed(2)}</p>
                   <button class="btn-add-cart mt-auto" data-id="${p.id}">Add to Cart</button>
                 </div>
               </div>
@@ -315,21 +317,23 @@
             cartItems.innerHTML = "";
 
             let totalCount = 0;
+            let totalPrice = 0;
 
             for (const id in cart) {
                 const item = products.find(p => p.id == id);
                 const quantity = cart[id];
                 totalCount += quantity;
+                totalPrice += item.price * quantity;
 
                 const li = document.createElement("li");
                 li.innerHTML = `
-          <span>${item.name} x ${quantity}</span>
+          <span>${item.name} x ${quantity} - $${(item.price * quantity).toFixed(2)}</span>
           <button data-id="${id}" class="btn-remove">&times;</button>
         `;
                 cartItems.appendChild(li);
             }
 
-            cartTotal.textContent = `Total Items: ${totalCount}`;
+            cartTotal.textContent = `Total Items: ${totalCount} | Total Price: $${totalPrice.toFixed(2)}`;
 
             document.querySelectorAll(".btn-remove").forEach(btn => {
                 btn.onclick = () => {
