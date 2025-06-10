@@ -44,7 +44,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background: url('imgs/Alternate Logo 1.png') center center/cover no-repeat;
+  background: url('imgs/Main\ Logo.png') center center/cover no-repeat;
   height: 70vh;
   display: flex;
   flex-direction: column;

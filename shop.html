@@ -12,7 +12,8 @@
         /* Cart sidebar styles */
         #cart {
             position: fixed;
-            right: 0;
+            right: -350px;
+            /* Hide offscreen initially */
             top: 70px;
             width: 320px;
             max-height: calc(100vh - 70px);
@@ -22,6 +23,12 @@
             padding: 1rem;
             z-index: 105;
             font-family: 'Montserrat', sans-serif;
+            transition: right 0.3s ease;
+        }
+
+        #cart.open {
+            right: 0;
+            /* Show the cart */
         }
 
         #cart h2 {
@@ -68,6 +75,24 @@
             color: #4a342e;
         }
 
+        /* Buy button styling */
+        #buy-button {
+            background-color: #4a342e;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            width: 100%;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+
+        #buy-button:hover {
+            background-color: #6b513f;
+        }
+
         /* Add to Cart button styling */
         .btn-add-cart {
             background-color: #b36b00;
@@ -108,6 +133,29 @@
             height: 180px;
             width: 100%;
         }
+
+        /* Cart button in header */
+        #cart-button {
+            font-size: 1.2rem;
+            position: relative;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: translate(50%, -50%);
+            font-size: 0.7rem;
+            background-color: #b36b00;
+            color: white;
+            padding: 0.15em 0.4em;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-family: 'Pacifico', cursive;
+        }
     </style>
 </head>
 
@@ -125,6 +173,11 @@
                     <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
                 </ul>
             </nav>
+            <!-- Cart button with badge -->
+            <button id="cart-button" type="button" class="btn btn-outline-secondary position-relative">
+                🛒 Cart
+                <span id="cart-count" class="badge bg-danger rounded-pill">0</span>
+            </button>
         </div>
     </header>
 
@@ -138,10 +191,11 @@
     </footer>
 
     <!-- Cart Sidebar -->
-    <aside id="cart">
+    <aside id="cart" aria-label="Shopping cart sidebar">
         <h2>Your Cart</h2>
         <ul id="cart-items"></ul>
         <div id="cart-total">Total Items: 0 | Total Price: $0.00</div>
+        <button id="buy-button">Buy Now</button>
     </aside>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -267,11 +321,11 @@
                         : '';
 
                     const slides = p.images
-                        .map((img, i) => `
-            <div class="carousel-item ${i === 0 ? "active" : ""}">
+                        .map((img, i) =>
+                            `<div class="carousel-item ${i === 0 ? "active" : ""}">
               <img src="${img}" class="d-block w-100" alt="${p.name} image ${i + 1}">
-            </div>
-          `).join("");
+            </div>`
+                        ).join("");
 
                     const controls = multipleImages
                         ? `
@@ -283,7 +337,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
               </button>
-            `
+              `
                         : '';
 
                     return `
@@ -313,6 +367,7 @@
         function updateCart() {
             const cartItems = document.getElementById("cart-items");
             const cartTotal = document.getElementById("cart-total");
+            const cartCount = document.getElementById("cart-count");
 
             cartItems.innerHTML = "";
 
@@ -326,15 +381,18 @@
                 totalPrice += item.price * quantity;
 
                 const li = document.createElement("li");
-                li.innerHTML = `
-          <span>${item.name} x ${quantity} - $${(item.price * quantity).toFixed(2)}</span>
-          <button data-id="${id}" class="btn-remove">&times;</button>
-        `;
+                li.innerHTML =
+                    `<span>${item.name} x ${quantity} - $${(item.price * quantity).toFixed(2)}</span>
+                    <button data-id="${id}" class="btn-remove">&times;</button>`;
                 cartItems.appendChild(li);
             }
 
             cartTotal.textContent = `Total Items: ${totalCount} | Total Price: $${totalPrice.toFixed(2)}`;
 
+            cartCount.textContent = totalCount;
+            cartCount.style.display = totalCount > 0 ? 'inline-block' : 'none';
+
+            // Remove item buttons
             document.querySelectorAll(".btn-remove").forEach(btn => {
                 btn.onclick = () => {
                     const id = btn.getAttribute("data-id");
@@ -350,6 +408,31 @@
                 cart[id] = (cart[id] || 0) + 1;
                 updateCart();
             }
+        });
+
+        // Toggle cart sidebar visibility
+        const cartButton = document.getElementById("cart-button");
+        const cartSidebar = document.getElementById("cart");
+
+        cartButton.addEventListener("click", () => {
+            cartSidebar.classList.toggle("open");
+        });
+
+        // Buy button click handler
+        const buyButton = document.getElementById("buy-button");
+        buyButton.addEventListener("click", () => {
+            const totalCount = Object.values(cart).reduce((a, b) => a + b, 0);
+            if (totalCount === 0) {
+                alert("Your cart is empty. Add some toys before buying!");
+                return;
+            }
+            alert(`Thank you for your purchase of ${totalCount} item(s)! (This is just a demo)`);
+            // Clear cart after purchase
+            for (const id in cart) {
+                delete cart[id];
+            }
+            updateCart();
+            cartSidebar.classList.remove("open");
         });
 
         renderProducts();
