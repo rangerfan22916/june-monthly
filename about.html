@@ -9,24 +9,93 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="style.css" />
     <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
         .logo {
             font-family: 'Pacifico', cursive;
         }
+
+        .header-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
+        main p {
+            max-width: 700px;
+            margin: 1rem auto;
+            font-size: 1.1rem;
+            text-align: justify;
+            color: #444;
+        }
+
+        .images-container {
+            max-width: 700px;
+            margin: 2rem auto 3rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: nowrap;
+        }
+
+        .story-image {
+            width: 48%;
+            border: 3px solid #000000;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            object-fit: cover;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .story-image:hover {
+            transform: scale(1.03);
+            border-color: #b36b00;
+        }
+
+        @media (max-width: 900px) {
+            .images-container {
+                flex-wrap: wrap;
+            }
+
+            .story-image {
+                width: 100%;
+            }
+        }
+
+        .social-btns a {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .social-btns a:hover {
+            color: #b36b00;
+        }
     </style>
+    <!-- Bootstrap Icons CDN for social icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 
 <body>
 
-    <header class=" site-header bg-white shadow-sm">
+    <header class="site-header bg-white shadow-sm">
         <div class="container d-flex justify-content-between align-items-center py-3">
-            <a href="index.html" class="logo text-dark fw-bold fs-3">Little Bird Toys</a>
+            <a href="index.html" class="d-flex align-items-center text-dark fw-bold fs-3 logo">
+                <img src="imgs/LBTCo-BW-bird-logo-cropped.png" alt="Little Bird Toys Logo" class="header-logo" />
+                Little Bird Toys
+            </a>
             <nav>
                 <ul class="nav">
                     <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
                     <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
                     <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                     <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a href="reviews.html" class="nav-link">reviews</a></li>
+                    <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
                 </ul>
             </nav>
         </div>
@@ -34,29 +103,33 @@
 
     <main class="container my-5">
         <h1 class="mb-4 text-center">Our Story</h1>
-        <p>Our Story: Little Bird Toys, established in 2018, brings families handcrafted wooden toys designed to spark
+
+        <p>
+            Our Story: Little Bird Toys, established in 2018, brings families handcrafted wooden toys designed to spark
             imagination and slow down playtime. Our heirloom-quality collection is built from sustainable materials and
             made to last a lifetime, fostering connections between generations.
-
         </p>
-        <p>Quality: We believe in the power of simple, safe play. Our handcrafted toys are free from plastic and
+        <p>
+            Quality: We believe in the power of simple, safe play. Our handcrafted toys are free from plastic and
             batteries, and made with sustainable Baltic birch wood. Each piece is meticulously crafted and rigorously
             tested in our Toms River, NJ workshop to meet the highest safety standards (ASTM & CA-Prop 65) and ensure
             unmatched durability.
-
-
         </p>
-        <p>Sustainability: At Little Bird Toys, we are committed to eco-friendly practices. Our wooden toys are designed
+        <p>
+            Sustainability: At Little Bird Toys, we are committed to eco-friendly practices. Our wooden toys are
+            designed
             for longevity, and our manufacturing process minimizes waste and supports the US economy.
-
-
         </p>
-        <p>Visit Us: Become part of the Little Bird Toys family! We love interacting with our customers and sharing the
+        <p>
+            Visit Us: Become part of the Little Bird Toys family! We love interacting with our customers and sharing the
             joy of our handcrafted toys. Visit our Toms River, NJ store to explore our charming play space and meet the
             team behind the magic.
-
-
         </p>
+
+        <div class="images-container">
+            <img src="imgs/LBTCo-BW-bird-logo-cropped.png" alt="Little Bird Toys Logo" class="story-image" />
+            <img src="imgs/block5.jpg" alt="Wooden Toys Display" class="story-image" />
+        </div>
     </main>
 
     <footer class="site-footer bg-light py-4 mt-5 text-center text-muted">
@@ -76,7 +149,6 @@
             </a>
         </div>
     </footer>
-
 
 </body>
 

@@ -12,6 +12,11 @@
     <!-- Custom CSS file -->
     <link rel="stylesheet" href="shop.css" />
     <style>
+        .header-logo {
+            height: 50px;
+            margin-right: 10px;
+        }
+
         /* --- Cart sidebar styles --- */
         #cart {
             position: fixed;
@@ -188,21 +193,23 @@
     <!-- Header with site logo and navigation -->
     <header class="site-header bg-white shadow-sm">
         <div class="container d-flex justify-content-between align-items-center py-3">
-            <a href="#" class="logo text-dark fw-bold fs-3">Little Bird Toys</a>
-            <nav>
-                <ul class="nav">
-                    <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
-                    <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
-                </ul>
-            </nav>
-            <!-- Cart button with badge showing number of items -->
-            <button id="cart-button" type="button" class="btn btn-outline-secondary position-relative">
-                🛒 Cart
-                <span id="cart-count" class="badge bg-danger rounded-pill">0</span>
-            </button>
+            <a href="index.html" class="d-flex align-items-center text-dark fw-bold fs-3 logo">
+                <img src="imgs/LBTCo-BW-bird-logo-cropped.png" alt="Little Bird Toys Logo" class="header-logo" />
+                Little Bird Toys
+                <nav>
+                    <ul class="nav">
+                        <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+                        <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
+                        <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                        <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
+                    </ul>
+                </nav>
+                <!-- Cart button with badge showing number of items -->
+                <button id="cart-button" type="button" class="btn btn-outline-secondary position-relative">
+                    🛒 Cart
+                    <span id="cart-count" class="badge bg-danger rounded-pill">0</span>
+                </button>
         </div>
     </header>
 
