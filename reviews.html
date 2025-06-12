@@ -2,12 +2,21 @@
 <html lang="en">
 
 <head>
+  <!-- Basic metadata and responsive setup -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Customer Reviews - Little Bird Toys</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Google Font: Montserrat -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Custom CSS file -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Inline styles for this page -->
   <style>
     .star-rating {
       color: #b36b00;
@@ -18,9 +27,9 @@
       font-family: 'Pacifico', cursive;
     }
 
+    /* Custom button style */
     .btn-cool {
       background: linear-gradient(45deg, #D2691E, #FF7F50);
-      /* orangy-brown gradient */
       border: none;
       color: white;
       font-weight: 600;
@@ -46,6 +55,7 @@
 
 <body>
 
+  <!-- Header with site logo and navigation -->
   <header class="site-header bg-white shadow-sm">
     <div class="container d-flex justify-content-between align-items-center py-3">
       <a href="index.html" class="logo text-dark fw-bold fs-3">Little Bird Toys</a>
@@ -55,19 +65,22 @@
           <li class="nav-item"><a href="shop.html" class="nav-link">Shop</a></li>
           <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
           <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-          <li class="nav-item"><a href="reviews.html" class="nav-link">reviews</a></li>
+          <li class="nav-item"><a href="reviews.html" class="nav-link">Reviews</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
+  <!-- Main content: Review section -->
   <main class="container my-5">
     <h2 class="section-title text-center mb-4">Customer Reviews</h2>
 
+    <!-- Area where reviews will be displayed -->
     <div id="reviews-list" class="mb-5">
-      <!-- Reviews loaded here by JS -->
+      <!-- Reviews loaded here by JavaScript -->
     </div>
 
+    <!-- Form to submit a new review -->
     <h3 class="mb-3">Write Your Own Review</h3>
     <form id="review-form" class="mb-5">
       <div class="mb-3">
@@ -93,9 +106,11 @@
     </form>
   </main>
 
+  <!-- Footer with contact info and social media links -->
   <footer class="site-footer bg-light py-4 mt-5 text-center text-muted">
     <p>© 2025 Little Bird Toys • 43 Main Street, Toms River, NJ 08753 • (732) 555-1234</p>
     <div class="social-btns mt-3">
+      <!-- Replace icons with Bootstrap icons or custom SVGs if needed -->
       <a href="https://www.facebook.com/LittleBirdToyCo" target="_blank" aria-label="Facebook">
         <i class="bi bi-facebook"></i>
       </a>
@@ -111,35 +126,23 @@
     </div>
   </footer>
 
-
+  <!-- JavaScript to handle reviews -->
   <script>
+    // Initial reviews array
     const reviews = [
-      {
-        name: "Samantha",
-        review: "Beautiful craftsmanship and excellent quality! My toddler loves the wooden airplane.",
-        rating: 5
-      },
-      {
-        name: "John",
-        review: "Great eco-friendly toys. The train set is a big hit with my kids.",
-        rating: 4
-      },
-      {
-        name: "Emily",
-        review: "Love the natural materials and attention to detail.",
-        rating: 5
-      },
-      {
-        name: "cooper",
-        review: "good enough",
-        rating: 3
-      }
+      { name: "Samantha", review: "Beautiful craftsmanship and excellent quality! My toddler loves the wooden airplane.", rating: 5 },
+      { name: "John", review: "Great eco-friendly toys. The train set is a big hit with my kids.", rating: 4 },
+      { name: "Emily", review: "Love the natural materials and attention to detail.", rating: 5 },
+      { name: "cooper", review: "good enough", rating: 3 },
+      { name: "bailey", review: "perfect quality", rating: 5 }
     ];
 
+    // Convert numeric rating to stars
     function renderStars(num) {
       return '★'.repeat(num) + '☆'.repeat(5 - num);
     }
 
+    // Render all reviews into the reviews list
     function renderReviews() {
       const list = document.getElementById('reviews-list');
       if (reviews.length === 0) {
@@ -155,6 +158,7 @@
       `).join('');
     }
 
+    // Handle form submission for new review
     function addReview(event) {
       event.preventDefault();
 
@@ -162,18 +166,22 @@
       const text = document.getElementById('review-text').value.trim();
       const rating = parseInt(document.getElementById('review-rating').value);
 
+      // Validate form inputs
       if (!name || !text || !rating) {
         alert('Please fill out all fields and select a rating.');
         return;
       }
 
+      // Add new review to the array and re-render list
       reviews.push({ name, review: text, rating });
       renderReviews();
       event.target.reset();
     }
 
+    // Attach form submission event
     document.getElementById('review-form').addEventListener('submit', addReview);
 
+    // Load initial reviews on page load
     window.onload = renderReviews;
   </script>
 
