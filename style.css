@@ -51,20 +51,18 @@ body {
   justify-content: center;
   text-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
-
 .hero-title {
-  font-size: 3rem;
-  max-width: 700px;
-  margin: 0 auto 1rem;
-  color: #fff;
+  font-family: 'pressio', sans-serif;
   font-weight: 700;
-  letter-spacing: 3px;
+  font-style: normal;
+  font-size: 5rem;
+  color: rgb(230, 209, 154);
 }
 
 .hero-subtitle {
   font-size: 1.25rem;
   margin-bottom: 2rem;
-  color: #e7d7b7;
+  color: #b3a791;
 }
 
 /* Buttons */
